@@ -13,7 +13,6 @@ const Uploading = () => {
     const [file, setFile] = useState(null)
     const [name, setName] = useState(null)
     const [uuid, setUuid] = useState(null)
-    const [url, setUrl] = useState(null)
 
 
     const HandleChange = (e) => {
@@ -26,14 +25,13 @@ const Uploading = () => {
     const HandleSubmit = async (e) => {
         e.preventDefault()
         const storageRef = ref(storage, uuid);
-        await UploadImg(file, storageRef)
+        await UploadImg(storageRef)
         await DownloadUrl(storageRef)
-        // await HandleUploadReg()
         setLoading(false)
     }
     
     
-    const UploadImg = async (file, storageRef) => {
+    const UploadImg = async (storageRef) => {
         setLoading(true)
         const uploaded = await uploadBytes(storageRef, file)
         alert('Archivo Subido ', uploaded)
@@ -41,17 +39,16 @@ const Uploading = () => {
     }
     
     const DownloadUrl = async (storageRef) => {
-        const dwUrl = await getDownloadURL(storageRef)
-        setUrl(dwUrl)
+        const url = await getDownloadURL(storageRef)
+        await HandleUploadReg(url)
     }
     
-    const HandleUploadReg = () => {
+    const HandleUploadReg = (url) => {
         const Registro = {
             id:uuid,
             name: name,
             url:url
         }
-        console.log(Registro)
 
         UploadReg(Registro)
     }
@@ -82,14 +79,6 @@ const Uploading = () => {
             <button
             onClick={HandleUploadReg}
             >Subir Registro</button>
-
-            <hr/>
-            <h3>Description of the problem</h3>
-            <p>I have tried in a lot of different ways, but without success yet.</p>
-            <p>I want to upload an img to a Firebase Storage, then, get the URL of that img just uploaded; and then push the URL, the Name, and the ID of that IMG in a Firebase Database, so I can have an index of all my images.</p>
-            <p>But allways <strong>the first img</strong> I upload (after refreshing the page), doesn't register the URL. Then, if I keep uploading more images, everything work just fine.</p>
-            <p>I don't understand why the first attempt goes wrong ant the others goes well.</p>
-            <strong>BUUUUUT! If I upload the register clicking in "Subir Registro " button, instead using the function inside "HandleSubmit", it works perfectly.</strong>
         </div>
     )
 }
