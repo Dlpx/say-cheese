@@ -28,29 +28,30 @@ const Uploading = () => {
         const storageRef = ref(storage, uuid);
         await UploadImg(file, storageRef)
         await DownloadUrl(storageRef)
-        await HandleUploadReg()
+        // await HandleUploadReg()
         setLoading(false)
     }
-
-
+    
+    
     const UploadImg = async (file, storageRef) => {
         setLoading(true)
         const uploaded = await uploadBytes(storageRef, file)
         alert('Archivo Subido ', uploaded)
         setFile(null)
     }
-
+    
     const DownloadUrl = async (storageRef) => {
-            const dwUrl = await getDownloadURL(storageRef)
-            setUrl(dwUrl)
+        const dwUrl = await getDownloadURL(storageRef)
+        setUrl(dwUrl)
     }
-
+    
     const HandleUploadReg = () => {
         const Registro = {
             id:uuid,
             name: name,
             url:url
         }
+        console.log(Registro)
 
         UploadReg(Registro)
     }
@@ -88,6 +89,7 @@ const Uploading = () => {
             <p>I want to upload an img to a Firebase Storage, then, get the URL of that img just uploaded; and then push the URL, the Name, and the ID of that IMG in a Firebase Database, so I can have an index of all my images.</p>
             <p>But allways <strong>the first img</strong> I upload (after refreshing the page), doesn't register the URL. Then, if I keep uploading more images, everything work just fine.</p>
             <p>I don't understand why the first attempt goes wrong ant the others goes well.</p>
+            <strong>BUUUUUT! If I upload the register clicking in "Subir Registro " button, instead using the function inside "HandleSubmit", it works perfectly.</strong>
         </div>
     )
 }
