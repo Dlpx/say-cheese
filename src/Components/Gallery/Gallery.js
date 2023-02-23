@@ -15,7 +15,7 @@ const Gallery = () => {
 
     useEffect(() => {
         const imgs = []
-        getDocs(collection(db, "imgs"))
+        getDocs(collection(db, "gallery"))
         .then( (respuesta) => {
             respuesta.forEach((doc) => {
                 imgs.push({
