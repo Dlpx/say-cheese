@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../Firebase/Config";
+import { db, storage } from "../../Firebase/Config";
 import { v4 as uuidv4 } from 'uuid';
 import { collection, addDoc } from "firebase/firestore";
 
@@ -33,8 +33,7 @@ const Uploading = () => {
     
     const UploadImg = async (storageRef) => {
         setLoading(true)
-        const uploaded = await uploadBytes(storageRef, file)
-        alert('Archivo Subido ', uploaded)
+        await uploadBytes(storageRef, file)
         setFile(null)
     }
     
@@ -76,9 +75,6 @@ const Uploading = () => {
                     disabled={file===null || loading }
                 >Subir</button>
             </form>
-            <button
-            onClick={HandleUploadReg}
-            >Subir Registro</button>
         </div>
     )
 }

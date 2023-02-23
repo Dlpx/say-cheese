@@ -1,5 +1,6 @@
 import './App.css';
-import Uploading from './Components/Uploading';
+import Gallery from './Components/Gallery/Gallery';
+import Uploading from './Components/Uploading/Uploading';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <h1>Say Cheese</h1>
       <p>Comienzo de la pagina</p>
       <Uploading /> 
+      <Gallery /> 
     </div>
   );
 }
